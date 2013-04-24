@@ -1,4 +1,6 @@
-﻿// For an introduction to the Blank template, see the following documentation:
+﻿/// <reference path="Preloaders/PxLoader.js" />
+/// <reference path="Preloaders/PxLoaderImage.js" />
+// For an introduction to the Blank template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232509
 (function () {
     "use strict";
@@ -23,16 +25,17 @@
     var menuEnabled = true;
 
     //Menu    
-    var MENUBG = "/images/MenuBG.png";
+    //var MENUBG = "/images/MenuBG.png";
     var MENUNUM = 0;
 
     //ViewState
     var SNAPPED_VIEW = 320;
 
     //Share Text
-    var SHARE_TITLE = "Check out my Beanstalk App!"
+    var SHARE_TITLE = "Check out Beanstalk!"
 
     function initialize() {
+        
         //Init Canvas
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext("2d");
@@ -91,7 +94,7 @@
 
         //clear screen and set default background
         ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        document.body.background = MENUBG;
+        //document.body.background = MENUBG;
 
     }
 
@@ -107,6 +110,46 @@
         ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         menuEnabled = false;
+
+        var img = new Image();
+
+        img.src = "/images/StartAnimation/Start.png";
+        img.onload = function () {
+            var fps = 15,
+                currentFrame = 0,
+                totalFrames = 93, //93
+                canvas = document.getElementById("canvas"),
+                ctx = canvas.getContext("2d"),
+                currentTime = rightNow();
+
+        (function animloop(time) {
+                var delta = (time - currentTime) / 1000;
+
+                currentFrame += (delta * fps);
+
+                var frameNum = Math.floor(currentFrame);
+
+                if (frameNum >= totalFrames) {
+                    //currentFrame = frameNum = 0;
+                    ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                    showGround();
+                    return;
+                    
+                }
+
+                requestAnimationFrame(animloop);
+
+                //drawFrame(ctx, img, 529, 298, frameNum);
+                drawFrame(ctx, img, SCREEN_WIDTH, SCREEN_HEIGHT, frameNum);
+                currentTime = time;
+        })(currentTime);
+        };
+        
+    }
+
+    function showGround(event) {
+
+        var context = document.getElementById('canvas').getContext('2d'); context.fillStyle = 'cornflowerblue'; context.strokeStyle = 'yellow'; context.shadowColor = 'rgba(50, 50, 50, 1.0)'; context.shadowOffsetX = 2; context.shadowOffsetY = 2; context.shadowBlur = 4; context.lineWidth = 20; context.lineCap = 'round'; context.beginPath(); context.moveTo(120.5, 130); context.quadraticCurveTo(150.8, 130, 160.6, 150.5); context.quadraticCurveTo(190, 250.0, 210.5, 160.5); context.quadraticCurveTo(240, 100.5, 290, 70.5); context.stroke();
 
     }
 

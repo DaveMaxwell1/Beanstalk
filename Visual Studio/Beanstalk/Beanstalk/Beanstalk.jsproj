@@ -59,9 +59,14 @@
     <Content Include="images\MenuBG.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
+    <Content Include="images\StartAnimation\Start.png" />
     <Content Include="images\storelogo.png" />
+    <Content Include="js\canvas.js" />
     <Content Include="js\default.js" />
     <Content Include="css\default.css" />
+    <Content Include="js\Preloaders\PxLoader.js" />
+    <Content Include="js\Preloaders\PxLoaderImage.js" />
+    <Content Include="js\requestAnimationFrame.js" />
     <None Include="Beanstalk_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

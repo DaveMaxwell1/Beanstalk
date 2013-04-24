@@ -1,4 +1,9 @@
 ﻿body {
+    background: url(/images/MenuBG.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 @media screen and (-ms-view-state: fullscreen-landscape) {
