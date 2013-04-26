@@ -1,0 +1,13 @@
+#ReturnAndShareControls {
+	top: 10px; height: 47px; right: 10px; overflow: hidden; position: absolute; z-index: 1000;
+}
+
+#ReturnAndShareControls > .ShareOnFacebookButton {
+	background-position: -30px 0px; width: 30px; height: 47px; display: inline-block; position: relative; background-image: url("../images/FeedBar.png");
+}
+#ReturnAndShareControls > .ShareOnTwitterButton {
+	background-position: -60px 0px; width: 37px; height: 47px; display: inline-block; position: relative; background-image: url("../images/FeedBar.png");
+}
+#ReturnAndShareControls > .ShareViaEmailButton {
+	background-position: 0px 0px; width: 30px; height: 47px; display: inline-block; position: relative; background-image: url("../images/FeedBar.png");
+}

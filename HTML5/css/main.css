@@ -1,0 +1,295 @@
+body {
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:11pt;
+color:#FFF;
+overflow:hidden;
+background-image:url(../images/bg.jpg);
+-ms-touch-action:none;
+margin:0;
+padding:0;
+}
+
+.hidden {
+position:absolute;
+left:-10000px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
+
+#container {
+width:100%;
+height:100%;
+}
+
+a:link,a:visited {
+color:#ffd293;
+text-decoration:none;
+}
+
+a:link:hover,a:visited:hover {
+color:#ffd293;
+text-decoration:underline;
+}
+
+#title {
+color:#FFF;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:24pt;
+position:absolute;
+top:10px;
+left:10px;
+width:100%;
+text-align:left;
+}
+
+#hotspots {
+position:absolute;
+bottom:0;
+width:100%;
+padding-top:5px;
+text-align:center;
+overflow-x:auto;
+overflow-y:hidden;
+white-space:nowrap;
+}
+
+img.hotspot {
+width:90px;
+height:60px;
+border:1px solid gray;
+border-radius:2px;
+opacity:0.75;
+margin:3px;
+padding:1px;
+}
+
+img.hotspot:hover {
+opacity:1;
+border-radius:4px;
+cursor:pointer;
+border-color:#FFF;
+border-width:2px;
+margin:2px;
+}
+
+div {
+margin:0;
+padding:0;
+}
+
+canvas {
+-ms-touch-action:none;
+}
+
+#infoPanel {
+top:95px;
+width:100px;
+text-align:center;
+right:15px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+text-decoration:none;
+position:absolute;
+z-index:201;
+opacity:1;
+background-color:#4bafe1;
+}
+
+#fpsometer {
+top:45px;
+width:100px;
+text-align:center;
+right:15px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:20px;
+position:absolute;
+z-index:203;
+background-color:rgba(0,0,0,0);
+}
+
+#fpsCanvas {
+top:40px;
+text-align:center;
+right:10px;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+position:absolute;
+z-index:202;
+}
+
+#startScreenCanvas {
+top:200px;
+text-align:center;
+left:10px;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+position:absolute;
+background-image: url(../images/ui/PocketMoney.png);
+background-repeat:no-repeat;
+z-index:205;
+color: #FFF;
+}
+
+/* Pocket money Panel CSS */
+
+#pocketMoneyPanel {
+top:95px;
+width:372px;
+text-align:center;
+left:315px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+text-decoration:none;
+position:absolute;
+z-index:201;
+opacity:1;
+}
+
+#pocketMoney {
+text-align:center;
+left:15px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+text-decoration:none;
+position:absolute;
+z-index:200;
+}
+
+[draggable=true] {
+	cursor: move;
+}
+#money {
+	list-style: none; padding: 0px; width: 60px; float: left; padding-top: 0px;
+}
+#money li {
+	display: inline;
+}
+.item {
+	margin: 1px; width: 40px; height: 40px; text-align: center; color: rgb(0, 0, 0); overflow: hidden; text-decoration: none; float: left; display: block;
+}
+.item img {
+	margin: 0px auto; border: 0px currentColor; width: 40px; height: 40px;
+}
+.item div {
+	background: rgba(0, 0, 0, 0.5); padding: 10px 0px; bottom: 69px; color: #FFF; display: none; position: relative;
+}
+#cart {
+	padding: 0px 0px; width: 312px; height: 237px; float: right; background-image: url(../images/ui/PocketMoney.png); background-position: right top; background-repeat:no-repeat; padding-top: 10px; text-align:center; z-index:200;
+}
+#cart ul {
+	padding: 0px;
+}
+#cart li {
+	list-style: none; padding: 5px; border-bottom-color: rgb(73, 73, 73); border-bottom-width: 1px; border-bottom-style: solid;
+}
+#cart .quantity {
+	width: 15px; text-align: left; padding-right: 10px; font-weight: bold; margin-right: 10px; border-right-color: rgb(73, 73, 73); border-right-width: 1px; border-right-style: solid; display: inline-block;
+}
+#cart .price {
+	text-align: center;
+}
+#total {
+	text-align: center;
+	padding-top: 40px;
+}
+.coins {
+	height: 80px;
+	width: 175px;
+	position: absolute; 
+	background-position: bottom center; 
+	background-repeat:no-repeat; 
+	margin-top: 105px;
+	margin-left: 182px;
+}
+
+.nextPocketMoney{
+	height: 35px;
+	width: 30px;
+	position: absolute;
+	margin-top: 195px;
+	margin-left: 297px;
+}
+
+.closePocketMoney{
+	height: 35px;
+	width: 30px;
+	position: absolute;
+	margin-top: 195px;
+	margin-left: 332px;			
+}
+
+/* weekday Select Panel CSS */
+
+#weekdaySelectorPanel {
+top:95px;
+width:435px;
+text-align:center;
+left:715px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+text-decoration:none;
+position:absolute;
+z-index:201;
+opacity:1;
+}
+
+#weekdaySelector {
+text-align:center;
+left:15px;
+color:#000;
+font-family:Segoe UI, Verdana, Arial, Sans-Serif;
+font-size:18px;
+text-decoration:none;
+position:absolute;
+z-index:200;
+}
+
+div#weekdaySelectedBox
+{
+margin-top: 5px;
+width: 312px; 
+height: 237px;
+float: right;
+background-image: url(../images/ui/weekdayselectorpanel.png); 
+background-position: right top; 
+background-repeat:no-repeat;
+padding-top: 100px;
+}
+
+.data {
+margin-top:15px;
+}
+
+.meter {
+font-size:28px;
+}
+
+.meterLabel {
+font-size:14px;
+margin-top:-5px;
+}
+
+.settingsLabel {
+color:#282828;
+font-size:14px;
+margin-top:15px;
+border-bottom-color:currentColor;
+border-bottom-width:2px;
+border-bottom-style:none;
+}
+
+.control,.label {
+color:#282828;
+font-size:14px;
+}
+
+.control a:link,.control a:visited {
+color:#282828;
+}

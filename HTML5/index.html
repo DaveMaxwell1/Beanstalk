@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Beanstalk</title>
+
+    <script type="text/javascript" src="js/FeatureDetectCanvas.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ReturnAndShareControls.css" />
+    
+    <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+    
+    <script type="text/javascript" src="js/fpsometer.js"></script>
+    <script type="text/javascript" src="js/overlays.js"></script>
+    
+    <script type="text/javascript" src="js/jquery.ndd.js"></script>
+    
+
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+    
+</head>
+<body>
+    
+   
+    
+	<div id="container" style="text-align: center; z-index: -1;"></div>
+    <div id="title"><img src="images/BeanstalkLogo.png" width="167" height="48" alt="Beanstalk Logo"></div>
+	
+	
+    <div id="ifIsIE7_IE8" style="padding-top: 100px; text-align: center; z-index: 10; display: none;">
+        <table border="0" cellpadding="0" cellspacing="0" width="700px" style="margin: auto; margin-top: 20px; border: solid 1px #ffffff; border-radius: 8px;">
+            <tr>
+                <td style="padding: 8px; font-size: 12pt; color: white;">
+                   Oops! We are unable to run Beanstalk as your browser does not support it. To experience hardware accelerated graphics, please install the latest version of Internet Explorer or any modern web browser.
+                </td>
+                <td style="padding: 8px; vertical-align: middle; font-size: 14pt; white-space: nowrap;">
+                  <div style="position: relative;">
+                        <a style="color: White; display: block; background-color: #6CCD3C; padding: 8px 16px; border-radius: 8px;" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Install!</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+	
+    <!-- demo description for screen readers -->
+    <div class="hidden">
+        Introducing Beanstalk, an application designed to explain the benefits of savings to children.
+    </div>
+    <div id="hotspots"></div>
+	
+<div id="ReturnAndShareControls"></div>
+    <!--
+        This file is a slightly modified version of Seadragon Ajax v0.8.5.
+        The modifications include our Seadragon branding and fixes for two
+        minor bugs we encountered during development.
+        
+        For use in your own applications, we recommend referencing our publicly
+        hosted library in order to get the latest bug fixes and updates:
+        
+        <script src="http://seadragon.com/ajax/0.8/seadragon-min.js"></script>
+        
+        We plan on pushing the two bug fixes to the hosted version very soon!
+        For documentation and more info, visit http://seadragon.com/ajax/.
+    -->
+<script type="text/javascript" src="js/FeatureDetectCanvas.js"></script>
+<script src="js/seadragon-branded-0.8.5.js"></script>
+<script src="js/yosemite-hotspots.js"></script>
+<script>
+		(function() {
+	
+			var container = document.getElementById("container");
+			var viewer = new Seadragon.BrandedViewer(container);
+			var hotspotsOutput = document.getElementById("hotspots");
+			var fallback = document.getElementById("fallback");
+			var fpsMeter;
+			var introScreen;
+
+			function onMove(e) {
+				if(e.scale != 1) {
+					viewer.viewport.zoomBy(e.scale);
+					viewer.viewport.applyConstraints();
+				}
+			}			
+			function setupPointer(e) {
+				var item  = e.currentTarget;
+				item._gesture.addPointer(e.pointerId);
+				e.stopPropagation();
+			}
+
+			function setupGestures(e) {
+				if (window.MSGesture ){
+					var canvas = e.elmt.querySelector("canvas");
+					canvas._gesture = new MSGesture();
+					canvas._gesture.target = canvas;
+					canvas.addEventListener("MSPointerDown", setupPointer, false);
+					canvas.addEventListener("MSGestureChange", onMove, false);
+				}
+			}			
+
+			
+			// remove the full page button; we're effectively in full page always!
+			var navControl = viewer.getNavControl();
+			navControl.removeChild(navControl.lastChild);
+
+			// add attribution :)
+			//viewer.setLogoCaption("Photo by xRez Studio","http://xrez.com/yose_proj/Yose_result.html");
+
+			viewer.addEventListener("animation", onAnimation);
+			Seadragon.Utils.addEvent(window, "resize", onResizeWindow);
+			viewer.addEventListener("open", setupGestures);
+			
+			//viewer.openDzi(
+				//"http://static.seadragon.com/content/misc/yosemite-panorama.dzi",
+				//'<?xml version="1.0" encoding="UTF-8"?><Image TileSize="254" Overlap="1" Format="jpg" xmlns="http://schemas.microsoft.com/deepzoom/2008"><Size Width="134400" Height="15738"/></Image>');
+				
+			viewer.openDzi(
+				"http://Beanstalk.azurewebsites.net/sky/dzc_output.xml",
+				'<?xml version="1.0" encoding="utf-8"?><Image TileSize="256" Overlap="1" Format="png" ServerFormat="Default" xmlns="http://schemas.microsoft.com/deepzoom/2009"><Size Width="1280" Height="29760" /></Image>');			
+
+				
+			onHotspotClick();
+	
+			// FALLBACK
+			if (!document.createElement("canvas").getContext) {
+				document.body.style.backgroundColor = 'white';
+
+				document.getElementById('ifIsIE7_IE8').style.display = "block";
+
+				document.getElementById('container').style.display = "hidden";
+				container.style.width = '80%';
+				container.style.position = 'absolute';
+				container.style.left = '10%';
+				
+				document.getElementById('title').style.position = 'absolute';
+				document.getElementById('title').style.left = '10%';
+
+				//document.getElementById('title').innerHTML = 'Beanstalk';
+				document.getElementById('hotspots').style.display = 'none';
+			}
+
+			// PROFILING
+			//fpsMeter = new FpsMeter("", "");
+			beginStartScreen = new startScreen("", "");
+			function onAnimation(viewer, args) {
+				//fpsMeter.Draw("", true);
+				
+				beginStartScreen.Draw("", true);
+			}
+
+
+        // HOTSPOTS
+
+        (function () {
+            for (var i = 0; i < hotspots.length; i++) {
+                var hotspot = hotspots[i],
+                    bounds = hotspot.bounds,
+                    img = document.createElement("img");
+
+                img.src = "images/hotspots/" + hotspot.thumb;
+                img.className = "hotspot";
+                img.title = hotspot.name;
+                img.bounds = new Seadragon.Rect(
+                    bounds.x, bounds.y, bounds.width, bounds.height);
+                img.onclick = onHotspotClick;
+                img.onfocus = onHotspotClick;
+                img.tabIndex = "0";
+                hotspotsOutput.appendChild(img);
+            }
+        } ());
+
+        function onHotspotClick() {
+            if (!viewer.isOpen()) {
+                return;
+            }
+            if (!(this.bounds instanceof Seadragon.Rect)) {
+                return;
+            }
+
+            var viewport = viewer.viewport,
+                srcBounds = viewport.getBounds(true),
+                destBounds = this.bounds;
+
+            // need to "correct" the aspect ratio of the hotspot bounds
+            viewport.fitBounds(destBounds);
+            destBounds = viewport.getBounds();
+
+            // find a "union" view that contains both the src and dest views.
+            var unionX1 = Math.min(srcBounds.x, destBounds.x),
+                unionY1 = Math.min(srcBounds.y, destBounds.y),
+                unionX2 = Math.max(srcBounds.x + srcBounds.width, destBounds.x + destBounds.width),
+                unionY2 = Math.max(srcBounds.y + srcBounds.height, destBounds.y + destBounds.height),
+                unionBounds = new Seadragon.Rect(
+                    unionX1, unionY1, unionX2 - unionX1, unionY2 - unionY1);
+
+            // if this union view is one or the other (i.e. if the src view
+            // contains the dest view, or vice versa), just go there directly.
+            // note the "almost equals" check to account for precision error.
+            if (unionBounds.almostEquals(srcBounds) ||
+                unionBounds.almostEquals(destBounds)) {
+                // we've already called viewport.fitBounds(destBounds) above.
+                return;
+            }
+
+            // otherwise, we will first go to this union view and then go to
+            // the dest view. i've found that just doing this is a little
+            // discontinuous and not always smooth, so i'm "stretching" the
+            // union view a bit to zoom out twice as far here:
+            unionBounds.width *= 2;
+            unionBounds.height *= 2;
+            unionBounds.x -= unionBounds.width / 4;
+            unionBounds.y -= unionBounds.height / 4;
+
+            // fire two animations back-to-back: zoom out then zoom in.
+            // will only fire the second animation if the user didn't start
+            // interacting after the first animation. we check for this by
+            // comparing the bounds; need to "correct" for aspect ratio again.
+            viewport.fitBounds(unionBounds);
+            unionBounds = viewport.getBounds();
+            window.setTimeout(function () {
+                if (viewport.getBounds().almostEquals(unionBounds)) {
+                    viewport.fitBounds(destBounds);
+                }
+            }, Seadragon.Config.animationTime * 750);
+        }
+
+        function onResizeWindow() {
+            updateLayout();
+        }
+
+        function updateLayout() {
+            container.style.height =
+                //(Seadragon.Utils.getWindowSize().y - hotspotsOutput.clientHeight) + "px";
+				(Seadragon.Utils.getWindowSize().y) + "px";
+        }
+
+        updateLayout();
+
+        // UTILITY
+        var EPSILON = 0.01;
+
+        Seadragon.Rect.prototype.almostEquals = function (other) {
+            return (
+                Math.abs(this.width - other.width) / this.width < EPSILON &&
+                Math.abs(this.height - other.height) / this.height < EPSILON &&
+                Math.abs(this.x - other.x) / this.width < EPSILON &&
+                Math.abs(this.y - other.y) / this.height < EPSILON
+            );
+        };
+		
+
+	}());
+    </script>
+
+<script type="text/javascript" src="js/ReturnAndShareControls.js"></script>
+</body>
+</html>
